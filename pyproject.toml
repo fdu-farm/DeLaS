@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "layered-guardrails"
+version = "0.1.0"
+description = "Deployment-centered safeguards for medical vision-language models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Lei Liu" },
+]
+keywords = [
+  "medical vision-language models",
+  "hallucination detection",
+  "confidence calibration",
+  "visual grounding",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+  "datasets>=2.19",
+  "joblib>=1.3",
+  "numpy>=1.24",
+  "openai>=1.30",
+  "openpyxl>=3.1",
+  "pandas>=2.0",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "scikit-learn>=1.3",
+  "scipy>=1.10",
+  "torch>=2.2",
+  "torchvision>=0.17",
+  "tqdm>=4.66",
+  "transformers>=4.50",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6",
+]
+
+[project.scripts]
+layered-guardrails-generate = "layered_guardrails.layer0_input.generation.run:main"
+layered-guardrails-label = "layered_guardrails.layer0_input.labeling.run:main"
+layered-guardrails-select = "layered_guardrails.layer1_selection.run:main"
+layered-guardrails-baselines = "layered_guardrails.layer2_screening.baselines.run:main"
+layered-guardrails-screen = "layered_guardrails.layer2_screening.run:main"
+layered-guardrails-calibrate = "layered_guardrails.layer3_calibration.run:main"
+layered-guardrails-retrospect = "layered_guardrails.layer4_retrospection.run:main"
+layered-guardrails-evaluate = "layered_guardrails.evaluation.run:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"layered_guardrails.layer0_input.labeling" = ["labels.example.csv"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

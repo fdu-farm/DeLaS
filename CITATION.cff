@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper and this repository."
+title: "Layered Guardrails for Medical Vision-Language Models"
+type: software
+version: 0.1.0
+date-released: 2026-06-19
+license: MIT
+authors:
+  - family-names: Liu
+    given-names: Lei
+preferred-citation:
+  type: article
+  title: "Deployment-Centered Multi-Layered Safeguards for Medical Vision-Language Models"
+  year: 2026
+  authors:
+    - family-names: Liu
+      given-names: Lei
+    - family-names: Hu
+      given-names: Binbin
+    - family-names: Liang
+      given-names: Shuyu
+    - family-names: Zhang
+      given-names: Haoran
+    - family-names: Huang
+      given-names: Yunxia
+    - family-names: Zhou
+      given-names: Shichong
+    - family-names: Guo
+      given-names: Yi
+    - family-names: Wang
+      given-names: Yuanyuan
+    - family-names: Li
+      given-names: Zeju
