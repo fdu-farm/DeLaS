@@ -3,10 +3,20 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
+import torch
 import yaml
 
 from layered_guardrails.layer2_screening.vip import ViP
+
+
+def _load_hidden(hidden_dir: Path, sample_id: str) -> np.ndarray:
+    obj = torch.load(hidden_dir / f"{sample_id}.pt", map_location="cpu", weights_only=True)
+    hs = obj["clean"]
+    if isinstance(hs, torch.Tensor):
+        hs = hs.detach().float().cpu().numpy()
+    return np.asarray(hs, dtype=np.float32).ravel()
 
 
 def main():
@@ -20,6 +30,7 @@ def main():
     args = parser.parse_args()
     config = yaml.safe_load(Path(args.config).read_text())
     root = Path(config["paths"]["output_root"])
+
     generation = pd.read_csv(root / "generation" / "responses_and_features.csv")
     baselines = pd.read_csv(root / "screening" / "baseline_scores.csv")
     labels_path = Path(args.labels) if args.labels else root / "labeling" / "labels.csv"
@@ -31,9 +42,22 @@ def main():
         labels[["sample_id", label_column]], on="sample_id"
     )
 
-    train = data["split"] == config["screening"]["train_split"]
-    model = ViP().fit(data.loc[train, "Delta"], data.loc[train, label_column])
-    data["ViP"] = model.confidence(data["Delta"])
+    hidden_dir = root / "generation" / "hidden_states"
+    data["_hs"] = data["sample_id"].apply(lambda sid: _load_hidden(hidden_dir, sid))
+
+    train_mask = data["split"] == config["screening"]["train_split"]
+    val_mask = data["split"] == config["screening"]["val_split"]
+
+    def stack_hs(mask):
+        return np.stack(data.loc[mask, "_hs"].to_list())
+
+    model = ViP().fit(
+        data.loc[train_mask, "Delta"], stack_hs(train_mask), data.loc[train_mask, label_column],
+        data.loc[val_mask, "Delta"], stack_hs(val_mask), data.loc[val_mask, label_column],
+    )
+    all_hs = np.stack(data["_hs"].to_list())
+    data["ViP"] = model.confidence(data["Delta"], all_hs)
+
     output = root / "screening"
     model.save(output / "vip.joblib")
     columns = [

@@ -24,6 +24,7 @@ generation:
 screening:
   label_column: hallucination_label
   train_split: train
+  val_split: validation
   test_split: test
   entailment_model: microsoft/deberta-v2-xlarge-mnli
 
