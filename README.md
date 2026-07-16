@@ -47,10 +47,17 @@ $$
 \Delta = \left\|h_{\mathrm{ori}}-h_{\mathrm{int}}\right\|_2.
 $$
 
-Here, $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are the response hidden
-states obtained from the original and intervened images. ViP combines a probe
-on the original representation with a probe on $\Delta$, then uses a stacked
-meta-classifier to estimate hallucination risk:
+Here, $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are the last-layer hidden
+states at the final non-special response token for the original and intervened
+images. ViP applies two complementary probes:
+
+$$
+z_h=f_h(h_{\mathrm{ori}}),\qquad
+z_\Delta=f_\Delta(\Delta).
+$$
+
+Their decision scores are passed to a stacked meta-classifier to estimate
+hallucination risk:
 
 $$
 p_{\mathrm{hall}}=
