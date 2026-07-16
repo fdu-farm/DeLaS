@@ -41,28 +41,31 @@ framework described in the paper comprises Layers 1–4.
 ### 🧠 Core methods
 
 **Visual Intervention Probing (ViP).** Layer 2 screens hallucination-prone
-responses by measuring their sensitivity to a mild visual intervention:
+responses using a stacked meta-classifier that estimates hallucination risk:
 
 $$
-\Delta = \left\|h_{\mathrm{ori}}-h_{\mathrm{int}}\right\|_2.
+p_{\mathrm{hall}}=
+\sigma\left(w_m^\top[z_h;z_\Delta]+b_m\right).
 $$
 
-Here, $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are the last-layer hidden
-states at the final non-special response token for the original and intervened
-images. ViP applies two complementary probes:
+where $z_h$ is the decision score of a representation probe on the original
+response hidden state, and $z_\Delta$ is the decision score of an intervention
+probe on the representation shift:
 
 $$
 z_h=f_h(h_{\mathrm{ori}}),\qquad
 z_\Delta=f_\Delta(\Delta).
 $$
 
-Their decision scores are passed to a stacked meta-classifier to estimate
-hallucination risk:
+The shift measures response sensitivity to a mild visual intervention:
 
 $$
-p_{\mathrm{hall}}=
-\sigma\left(w_m^\top[z_h;z_\Delta]+b_m\right).
+\Delta = \left\|h_{\mathrm{ori}}-h_{\mathrm{int}}\right\|_2,
 $$
+
+where $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are the last-layer hidden
+states at the final non-special response token for the original and intervened
+images.
 
 **Vision-Grounded Gated Calibration (VG-GC).** Layer 3 converts an uncalibrated
 reliability score $s$ into a calibrated probability of correctness. It uses
