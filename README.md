@@ -54,7 +54,7 @@ meta-classifier to estimate hallucination risk:
 
 $$
 p_{\mathrm{hall}}=
-\sigma\!\left(w_m^\top[z_h;z_\Delta]+b_m\right).
+\sigma\left(w_m^\top[z_h;z_\Delta]+b_m\right).
 $$
 
 **Vision-Grounded Gated Calibration (VG-GC).** Layer 3 converts an uncalibrated
@@ -66,7 +66,7 @@ measuring response sensitivity to the visual input. These cues determine a
 sample-specific gate that adjusts the original score:
 
 $$
-g=\sigma\!\left(w_c^\top[\mathrm{VAS},\mathrm{VAC},\mathrm{JN}]+b_c\right),
+g=\sigma\left(w_c^\top[\mathrm{VAS},\mathrm{VAC},\mathrm{JN}]+b_c\right),
 \qquad
 p_{\mathrm{correct}}=s\cdot g^{1/T}+\beta.
 $$
