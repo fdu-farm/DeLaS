@@ -19,7 +19,7 @@ The framework supports model selection, hallucination-risk screening,
 confidence-guided decisions, and retrospective reliability review.
 </em></p>
 
-## Overview
+## 🧭 Overview
 
 This repository is organized around **Layer 0–4**, using **MedGemma** and
 **VQA-RAD** as the public example:
@@ -38,7 +38,7 @@ the cross-layer evaluation module.
 Layer 0 is the reproducibility and data-preparation stage. The safeguard
 framework described in the paper comprises Layers 1–4.
 
-### Core methods
+### 🧠 Core methods
 
 **Visual Intervention Probing (ViP).** Layer 2 screens hallucination-prone
 responses by measuring their sensitivity to a mild visual intervention:
@@ -78,7 +78,7 @@ Generation saves model outputs and grounding features only. Confidence
 baselines—AvgProb, MaxProb, AvgEnt, MaxEnt, SEnt, SEne, VASE, and RadFlag—are
 computed separately during Layer 2 risk screening.
 
-## Repository structure
+## 📁 Repository structure
 
 ```text
 repository/
@@ -97,7 +97,7 @@ repository/
 └── pyproject.toml
 ```
 
-## Setup
+## ⚙️ Setup
 
 ```bash
 python -m pip install -e .
@@ -118,7 +118,7 @@ token is stored in code.
 When VQA-RAD has no validation split, the code deterministically reserves 20%
 of its training split for calibration.
 
-## Hallucination labeling
+## 🏷️ Hallucination labeling
 
 The labeling stage produces a CSV containing:
 
@@ -137,7 +137,7 @@ estimation itself does not use labels.
 Set `DASHSCOPE_API_KEY` or `OPENAI_API_KEY` before running labeling. API keys
 are never stored in the repository.
 
-## Quick start
+## 🚀 Quick start
 
 Install the package, then run the full workflow from the repository root:
 
@@ -158,7 +158,7 @@ The generation stage performs one greedy clean-image pass, one greedy
 intervened-image pass, and the configured clean/intervened stochastic passes
 for consistency baselines.
 
-## Outputs
+## 📦 Outputs
 
 ```text
 outputs/
@@ -177,7 +177,7 @@ outputs/
 `calibrated_confidence.xlsx` contains one sheet per measure. Every sheet has
 the sample-level `UC`, `TS`, and `VG-GC` confidence values.
 
-## Implementation notes
+## 📝 Implementation notes
 
 - VAS and VAC use answer-token attention from the final decoder layer.
 - JN is the norm of the response log-likelihood gradient with respect to image
@@ -185,7 +185,7 @@ the sample-level `UC`, `TS`, and `VG-GC` confidence values.
 - Large model weights, datasets, generated logits, and hidden states are not
   included in the repository.
 
-## Citation
+## 📚 Citation
 
 Citation metadata is available in [`CITATION.cff`](CITATION.cff). On GitHub,
 the repository's **Cite this repository** button will use this file.
