@@ -40,10 +40,13 @@ framework described in the paper comprises Layers 1–4.
 
 ### 🧠 Core methods
 
-**Visual Intervention Probing (ViP).** Layer 2 screens hallucination-prone
-responses by combining the original response representation with its shift
-under a controlled visual intervention. The
-intervention-induced representation shift is defined as
+**Visual Intervention Probing (ViP).** Layer 2 uses ViP to screen for
+hallucination-prone responses, particularly those insufficiently supported by
+the medical image. The underlying intuition is that image-grounded responses
+should maintain relatively stable internal representations under a mild,
+controlled visual intervention, whereas weakly grounded responses are more
+likely to exhibit larger representation shifts. The intervention-induced
+representation shift is defined as
 
 $$
 \Delta = \left\|h_{\mathrm{ori}}-h_{\mathrm{int}}\right\|_2,
