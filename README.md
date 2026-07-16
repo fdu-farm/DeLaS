@@ -41,7 +41,8 @@ framework described in the paper comprises Layers 1–4.
 ### 🧠 Core methods
 
 **Visual Intervention Probing (ViP).** Layer 2 screens hallucination-prone
-responses by measuring their sensitivity to a mild visual intervention. The
+responses by combining the original response representation with its shift
+under a controlled visual intervention. The
 intervention-induced representation shift is defined as
 
 $$
