@@ -40,16 +40,39 @@ framework described in the paper comprises Layers 1–4.
 
 ### Core methods
 
-ViP uses only the intervention-induced representation shift:
+**Visual Intervention Probing (ViP).** Layer 2 screens hallucination-prone
+responses by measuring their sensitivity to a mild visual intervention:
 
-\[
-\Delta =
-\left\|h_{\mathrm{clean}}^{\mathrm{last\ generation}}
-- h_{\mathrm{intervened}}^{\mathrm{last\ generation}}\right\|_2
-\]
+$$
+\Delta = \left\|h_{\mathrm{ori}}-h_{\mathrm{int}}\right\|_2.
+$$
 
-VG-GC combines a base confidence measure with three visual-grounding cues:
-**VAS**, **VAC**, and **JN**.
+Here, $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are the response hidden
+states obtained from the original and intervened images. ViP combines a probe
+on the original representation with a probe on $\Delta$, then uses a stacked
+meta-classifier to estimate hallucination risk:
+
+$$
+p_{\mathrm{hall}}=
+\sigma\!\left(w_m^\top[z_h;z_\Delta]+b_m\right).
+$$
+
+**Vision-Grounded Gated Calibration (VG-GC).** Layer 3 converts an uncalibrated
+reliability score $s$ into a calibrated probability of correctness. It uses
+three visual-grounding cues: **Vision Attention Share (VAS)**, measuring how
+much the response attends to the image; **Vision Attention Concentration
+(VAC)**, measuring how focused that attention is; and **Jacobian Norm (JN)**,
+measuring response sensitivity to the visual input. These cues determine a
+sample-specific gate that adjusts the original score:
+
+$$
+g=\sigma\!\left(w_c^\top[\mathrm{VAS},\mathrm{VAC},\mathrm{JN}]+b_c\right),
+\qquad
+p_{\mathrm{correct}}=s\cdot g^{1/T}+\beta.
+$$
+
+VG-GC therefore preserves the original reliability signal while correcting it
+according to how strongly each response is grounded in the image.
 
 Generation saves model outputs and grounding features only. Confidence
 baselines—AvgProb, MaxProb, AvgEnt, MaxEnt, SEnt, SEne, VASE, and RadFlag—are
