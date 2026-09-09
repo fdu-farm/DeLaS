@@ -33,6 +33,6 @@ def ace(labels, confidence, bins=15):
 
 def safe_rate(labels, confidence, threshold):
     labels = np.asarray(labels, dtype=float)
-    keep = np.asarray(confidence, dtype=float) >= threshold
+    keep = np.asarray(confidence, dtype=float) > threshold
     return float(labels[keep].mean()) if keep.any() else float("nan")
 

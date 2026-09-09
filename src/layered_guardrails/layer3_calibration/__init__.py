@@ -1,1 +1,1 @@
-"""Layer 3 calibration: temperature scaling and VG-GC."""
+"""Layer III calibration: temperature scaling and DeLaS-Cal."""

@@ -33,7 +33,8 @@ calibration:
   validation_split: validation
   test_split: test
   measures:
-    - ViP
+    - DeLaS-Scr
+    - LinearProbe
     - AvgProb
     - MaxProb
     - AvgEnt
@@ -44,8 +45,17 @@ calibration:
     - RadFlag
 
 paths:
-  output_root: outputs
+  output_root: outputs/delas
 
 labeling:
   base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
-  model: qwen-plus
+  model: ""
+
+routing:
+  policies:
+    high_coverage: [0.30, 0.50]
+    balanced: [0.40, 0.60]
+    high_precision: [0.50, 0.70]
+
+retrospection:
+  group_by: [question_type, answer_type, modality, organ]

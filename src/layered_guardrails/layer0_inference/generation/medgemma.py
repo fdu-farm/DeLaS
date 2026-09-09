@@ -6,8 +6,8 @@ import numpy as np
 import torch
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
-from layered_guardrails.layer0_input.generation.data import build_question_prompt
-from layered_guardrails.layer0_input.generation.features import (
+from layered_guardrails.layer0_inference.generation.data import build_question_prompt
+from layered_guardrails.layer0_inference.generation.features import (
     attention_features,
     extract_last_generation_hidden,
     jacobian_norm,

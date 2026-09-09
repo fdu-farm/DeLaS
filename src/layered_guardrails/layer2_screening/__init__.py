@@ -1,1 +1,1 @@
-"""Layer 2 screening: ViP and hallucination-risk baselines."""
+"""Layer II screening: DeLaS-Scr and hallucination-risk baselines."""

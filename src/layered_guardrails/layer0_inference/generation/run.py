@@ -12,12 +12,12 @@ import torch
 import yaml
 from tqdm import tqdm
 
-from layered_guardrails.layer0_input.generation.data import load_vqa_rad
-from layered_guardrails.layer0_input.generation.features import (
+from layered_guardrails.layer0_inference.generation.data import load_vqa_rad
+from layered_guardrails.layer0_inference.generation.features import (
     compute_delta,
     vision_intervention,
 )
-from layered_guardrails.layer0_input.generation.medgemma import MedGemmaRunner
+from layered_guardrails.layer0_inference.generation.medgemma import MedGemmaRunner
 
 
 def parse_args():
@@ -49,6 +49,9 @@ def main():
         config["dataset"].get("max_samples"),
         config["dataset"].get("validation_fraction", 0.2),
         seed,
+        metadata_fields=config.get("retrospection", {}).get(
+            "group_by", ["question_type", "answer_type", "modality", "organ"]
+        ),
     )
     gen_cfg = config["generation"]
     intervention_cfg = gen_cfg["intervention"]
@@ -73,6 +76,7 @@ def main():
         )
         rows.append(
             {
+                **{key: value for key, value in item.items() if key != "image"},
                 "sample_id": sample_id,
                 "split": item["split"],
                 "question": item["question"],

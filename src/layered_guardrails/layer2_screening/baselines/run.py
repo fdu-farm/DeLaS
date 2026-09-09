@@ -28,9 +28,9 @@ def main():
     output = root / "screening"
     output.mkdir(parents=True, exist_ok=True)
 
-    frame = pd.read_csv(generation / "responses_and_features.csv")
+    frame = pd.read_csv(generation / "responses_and_features.csv", dtype={"sample_id": str})
     frame["sample_id"] = frame["sample_id"].astype(str)
-    sampled = pd.read_json(generation / "sampled_responses.jsonl", lines=True)
+    sampled = pd.read_json(generation / "sampled_responses.jsonl", lines=True, dtype={"sample_id": str})
     sampled["sample_id"] = sampled["sample_id"].astype(str)
     clusterer = EntailmentClusterer(config["screening"]["entailment_model"], config["device"])
     rows = []

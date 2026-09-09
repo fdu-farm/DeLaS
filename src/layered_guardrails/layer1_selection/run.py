@@ -8,7 +8,10 @@ import yaml
 
 from layered_guardrails.layer1_selection.model_selection import (
     select_best_model,
-    summarize_model,
+    load_candidates,
+    summarize_predictions,
+    select_per_question,
+    question_selection_summary,
 )
 
 
@@ -42,19 +45,19 @@ def main():
         )
     ]
 
-    estimates = pd.concat(
-        [
-            summarize_model(workbook=path, model_name=model)
-            for model, path in candidates
-        ],
-        ignore_index=True,
-    )
+    label_column = config["calibration"]["label_column"]
+    predictions = load_candidates(candidates, label_column)
+    estimates = summarize_predictions(predictions)
     selected = select_best_model(estimates)
+    questions = select_per_question(predictions)
+    question_summary = question_selection_summary(questions, label_column)
     output = output_root / "layer1_selection"
     output.mkdir(parents=True, exist_ok=True)
     with pd.ExcelWriter(output / "model_selection.xlsx", engine="openpyxl") as writer:
         estimates.to_excel(writer, sheet_name="estimates", index=False)
         selected.to_excel(writer, sheet_name="selected_models", index=False)
+        questions.to_excel(writer, sheet_name="selected_questions", index=False)
+        question_summary.to_excel(writer, sheet_name="question_summary", index=False)
 
 
 if __name__ == "__main__":

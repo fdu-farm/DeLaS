@@ -9,7 +9,7 @@ import pandas as pd
 import yaml
 from tqdm import tqdm
 
-from layered_guardrails.layer0_input.labeling.prompt import (
+from layered_guardrails.layer0_inference.labeling.prompt import (
     build_evaluation_text,
     parse_correctness_label,
 )
@@ -20,14 +20,14 @@ PENDING = "pending"
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Label generated VQA responses with an OpenAI-compatible Qwen endpoint."
+        description="Label generated VQA responses with a user-selected model through an OpenAI-compatible endpoint."
     )
     parser.add_argument("--config", default="configs/medgemma_vqa_rad.yaml")
     parser.add_argument("--input", default=None, help="Generation CSV; defaults to config output path.")
-    parser.add_argument("--output", default=None, help="Label CSV; defaults to outputs/labeling/labels.csv.")
+    parser.add_argument("--output", default=None, help="Label CSV; defaults to labeling/labels.csv under the configured output root.")
     parser.add_argument("--api-key", default=None)
     parser.add_argument("--base-url", default=None)
-    parser.add_argument("--model", default=None)
+    parser.add_argument("--model", default=None, help="Labeling model; overrides labeling.model.")
     parser.add_argument("--max-retries", type=int, default=3)
     return parser.parse_args()
 
@@ -50,9 +50,9 @@ def build_client(api_key: str, base_url: str):
 
 def initialize_output(input_path: Path, output_path: Path) -> pd.DataFrame:
     if output_path.exists():
-        frame = pd.read_csv(output_path)
+        frame = pd.read_csv(output_path, dtype={"sample_id": str})
     else:
-        source = pd.read_csv(input_path)
+        source = pd.read_csv(input_path, dtype={"sample_id": str})
         required = {"sample_id", "question", "answer", "response"}
         missing = required - set(source.columns)
         if missing:
@@ -110,9 +110,15 @@ def main():
     base_url = args.base_url or label_config.get(
         "base_url", "https://dashscope.aliyuncs.com/compatible-mode/v1"
     )
-    model = args.model or label_config.get("model", "qwen-plus")
+    model = args.model if args.model is not None else label_config.get("model", "")
+    if not isinstance(model, str) or not model.strip():
+        raise ValueError("Specify a labeling model in labeling.model or with --model.")
+    model = model.strip()
     client = build_client(api_key, base_url)
     frame = initialize_output(input_path, output_path)
+    # Pending strings and completed integer labels share these columns.
+    for column in ("correctness_label", "hallucination_label"):
+        frame[column] = frame[column].astype(object)
 
     for index, row in tqdm(frame.iterrows(), total=len(frame), desc=f"Labeling with {model}"):
         if completed(row.get("correctness_label")):
