@@ -1,8 +1,6 @@
 <div align="center">
 
-# Deployment-Oriented Multi-Layered Safeguards for Medical Vision–Language Models
-
-**DeLaS**
+# DeLaS: Deployment-Oriented Multi-Layered Safeguards for Medical Vision–Language Models
 
 Medical VLM, Reliability-aware deployment, Hallucination
 
