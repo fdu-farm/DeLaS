@@ -146,5 +146,15 @@ The manuscript describing DeLaS is currently under review. If you use this code,
 please cite the software repository below. The paper citation will be added when
 publicly available.
 
-> Lei L, et al. (2026). *DeLaS: Deployment-Oriented Multi-Layered Safeguards for Medical
+> Liu L, et al. (2026). *DeLaS: Deployment-Oriented Multi-Layered Safeguards for Medical
 > Vision–Language Models* [Software]. GitHub. https://github.com/fdu-farm/DeLaS
+
+```bibtex
+@misc{liu2026delas,
+  author = {Liu, Lei and others},
+  title  = {{DeLaS}: Deployment-Oriented Multi-Layered Safeguards
+            for Medical Vision-Language Models},
+  year   = {2026},
+  url    = {https://github.com/fdu-farm/DeLaS}
+}
+```
