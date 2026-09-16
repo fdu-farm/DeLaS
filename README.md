@@ -18,10 +18,11 @@ Selection → Screening → Decision → Retrospection
 
 ## 🧭 Overview
 
-Medical vision–language models can produce plausible answers that are unsupported
-by the image. **DeLaS** incorporates visual grounding into reliability assessment
-across the deployment pathway, connecting model selection, hallucination screening,
-confidence-guided decisions, and retrospective monitoring.
+Medical vision–language models (VLMs) are approaching clinical use, but
+hallucinations in the form of plausible yet visually unsupported answers remain
+a major barrier to safe deployment. **DeLaS** incorporates visual grounding into
+reliability assessment across the deployment pathway, connecting model selection,
+hallucination screening, confidence-guided decisions, and retrospective monitoring.
 
 | Layer | Stage | Purpose |
 |---|---|---|
