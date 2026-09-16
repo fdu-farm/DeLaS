@@ -46,10 +46,10 @@ DeLaS-Scr examines how a response representation changes under a mild, controlle
 visual intervention. Weakly grounded responses tend to exhibit larger shifts:
 
 $$
-\Delta = \left\|h_{\mathrm{ori}}-h_{\mathrm{int}}\right\|_2,
+\Delta = \left\|\mathbf{h}_{\mathrm{ori}}-\mathbf{h}_{\mathrm{int}}\right\|_2,
 $$
 
-where $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are response representations from
+where $\mathbf{h}_{\mathrm{ori}}$ and $\mathbf{h}_{\mathrm{int}}$ are response representations from
 the original and intervened images.
 
 DeLaS-Scr uses two separate probes to map the original response representation
@@ -78,7 +78,7 @@ the amount, distribution, and sensitivity of visual reliance.
 These cues form a sample-specific gate that modulates the original score $s$:
 
 $$
-g=\sigma\left(w_c^\top[\mathrm{VAS},\mathrm{VAC},\mathrm{JN}]+b_c\right),
+g=\sigma\left(\mathbf{w}_c^\top[\mathrm{VAS},\mathrm{VAC},\mathrm{JN}]+b_c\right),
 \qquad
 p_{\mathrm{correct}}=s\cdot g^{1/T}+\beta.
 $$
@@ -123,6 +123,7 @@ python -m pip install -e .
 ```
 
 For a quick start, run DeLaS with MedGemma on the VQA-RAD dataset.
+The example workflow includes response generation, labeling, fitting, and evaluation.
 Configure the runtime settings and required credentials in your environment,
 then execute:
 
