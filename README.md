@@ -138,21 +138,15 @@ workflow with your configuration file:
 scripts/run_pipeline.sh path/to/your_config.yaml
 ```
 
-## 📦 Workflow outputs and policies
+## 📦 Workflow outputs
 
-Results are saved under `outputs/delas/`, including screening scores, calibrated
-confidence, routing decisions, model comparisons, and retrospective summaries.
-Evaluation covers hallucination discrimination (AUROC), calibration (ECE and ACE),
-and correctness among accepted responses (safe rate).
+The workflow saves its outputs under `outputs/delas/`, including
+hallucination scores, calibrated confidence, routing decisions,
+model comparisons, and subgroup reliability summaries.
 
-Two configurable confidence thresholds assign responses to **reject**, **clinician
-review**, or **accept** pathways. Coverage-oriented and precision-oriented policies
-allow different trade-offs between response retention and reliability.
-
-For model selection, candidate VLMs are compared on the same target samples using
-calibrated confidence. For retrospection, confidence is aggregated within
-prespecified subgroups to reveal reliability differences that overall averages
-may obscure.
+With reference labels, evaluation reports include hallucination
+discrimination (AUROC), calibration (ECE and ACE), and correctness
+among accepted responses (safe rate).
 
 <a id="citation"></a>
 
