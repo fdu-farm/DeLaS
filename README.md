@@ -121,19 +121,20 @@ Install the package from the repository root:
 python -m pip install -e .
 ```
 
-Configure the runtime settings and required credentials for your environment,
-then run the workflow:
+For a quick start, run DeLaS with MedGemma on the VQA-RAD dataset.
+Configure the runtime settings and required credentials in your environment,
+then execute:
 
 ```bash
 scripts/run_pipeline.sh configs/medgemma_vqa_rad.yaml
 ```
 
-For development and verification:
+To evaluate another VLM–VQA pair, create a configuration for your model and dataset,
+adapting the model interface and data loading as needed. Then run the same
+workflow with your configuration file:
 
 ```bash
-python -m pip install -e ".[dev]"
-ruff check .
-python -m unittest discover -s tests -v
+scripts/run_pipeline.sh path/to/your_config.yaml
 ```
 
 ## 📦 Workflow outputs and policies
