@@ -123,7 +123,6 @@ python -m pip install -e .
 ```
 
 For a quick start, run DeLaS with MedGemma on the VQA-RAD dataset.
-The example workflow includes response generation, labeling, fitting, and evaluation.
 Configure the runtime settings and required credentials in your environment,
 then execute:
 
