@@ -1,35 +1,12 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite the paper and this repository."
+message: "If you use this software, please cite this repository. The manuscript is currently under review; the paper citation will be added when publicly available."
 title: "DeLaS: Deployment-Oriented Multi-Layered Safeguards for Medical Vision-Language Models"
 type: software
+url: "https://github.com/fdu-farm/DeLaS"
+repository-code: "https://github.com/fdu-farm/DeLaS"
 version: 0.1.0
 date-released: 2026-06-19
 license: MIT
 authors:
   - family-names: Liu
     given-names: Lei
-preferred-citation:
-  type: article
-  title: "Deployment-Oriented Multi-Layered Safeguards for Medical Vision-Language Models"
-  year: 2026
-  authors:
-    - family-names: Liu
-      given-names: Lei
-    - family-names: Hu
-      given-names: Binbin
-    - family-names: Zhang
-      given-names: Hao
-    - family-names: Liang
-      given-names: Shuyu
-    - family-names: Zhang
-      given-names: Haoran
-    - family-names: Huang
-      given-names: Yunxia
-    - family-names: Zhou
-      given-names: Shichong
-    - family-names: Guo
-      given-names: Yi
-    - family-names: Wang
-      given-names: Yuanyuan
-    - family-names: Li
-      given-names: Zeju

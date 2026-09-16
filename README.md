@@ -4,7 +4,7 @@
 
 Medical VLM, Reliability-aware deployment, Hallucination
 
-[Configuration](configs/medgemma_vqa_rad.yaml) · [Citation](CITATION.cff)
+[Configuration](configs/medgemma_vqa_rad.yaml) · [Citation](#citation)
 
 </div>
 
@@ -138,11 +138,31 @@ calibrated confidence. For retrospection, confidence is aggregated within
 prespecified subgroups to reveal reliability differences that overall averages
 may obscure.
 
+<a id="citation"></a>
+
 ## 📚 Citation
 
-Please cite the paper and repository when using DeLaS. Citation metadata is
-available in [`CITATION.cff`](CITATION.cff) and through GitHub's
-**Cite this repository** button.
+The manuscript describing DeLaS is currently under review. If you use this code,
+please cite the software repository below. The paper citation will be added when
+publicly available.
+
+> Liu, L. (2026). *DeLaS: Deployment-Oriented Multi-Layered Safeguards for Medical
+> Vision–Language Models* [Software]. GitHub. https://github.com/fdu-farm/DeLaS
+
+```bibtex
+@misc{liu2026delas,
+  author       = {Liu, Lei},
+  title        = {{DeLaS}: Deployment-Oriented Multi-Layered Safeguards
+                  for Medical Vision-Language Models},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/fdu-farm/DeLaS},
+  note         = {Research software}
+}
+```
+
+Software citation metadata is also available in [`CITATION.cff`](CITATION.cff)
+for GitHub's **Cite this repository** feature.
 
 > [!CAUTION]
 > This research code is not a medical device and is not intended for direct
