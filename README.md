@@ -54,8 +54,22 @@ $$
 $$
 
 where $h_{\mathrm{ori}}$ and $h_{\mathrm{int}}$ are response representations from
-the original and intervened images. Combining the original representation with
-this intervention-induced shift produces a grounding-aware estimate of
+the original and intervened images.
+
+DeLaS-Scr uses two separate probes to map the original response representation
+and the intervention-induced shift to decision scores, then combines them to
+estimate hallucination risk:
+
+$$
+p_{\mathrm{hall}}
+=\sigma\left(\mathbf{w}_m^\top[z_h;z_{\Delta}]+b_m\right).
+$$
+
+Here, $z_h$ and $z_{\Delta}$ are the decision scores from two
+$\ell_2$-regularized logistic regression probes applied to the original
+representation and the shift, respectively. The scores are concatenated and
+combined using learned weights $\mathbf{w}_m$ and bias $b_m$, followed by the
+sigmoid function $\sigma$. Higher $p_{\mathrm{hall}}$ indicates greater
 hallucination risk.
 
 ### DeLaS-Cal: grounding-aware confidence calibration
