@@ -26,15 +26,10 @@ hallucination screening, confidence-guided decisions, and retrospective monitori
 
 | Layer | Stage | Purpose |
 |---|---|---|
-| I | Selection | Estimate target-setting accuracy and select the most reliable candidate VLM |
+| I | Selection | Identify the best-performing VLM at both benchmark and question levels |
 | II | Screening | Identify hallucination-prone responses with DeLaS-Scr |
 | III | Decision | Calibrate confidence with DeLaS-Cal and guide reject/review/accept routing |
 | IV | Retrospection | Estimate reliability across datasets and clinically meaningful subgroups |
-
-Calibrated response confidence provides a shared signal for model selection,
-routing, and subgroup monitoring. Selection and retrospective accuracy estimation
-operate without ground-truth answers in the target setting; the screening and
-calibration components are fitted using labeled development data.
 
 The paper evaluates DeLaS across three medical VLMs, eight public benchmarks,
 and an independent breast-ultrasound cohort. DeLaS identified the best-performing
@@ -89,9 +84,14 @@ p_{\mathrm{correct}}=s\cdot g^{1/T}+\beta.
 $$
 
 Here, $\sigma$ is the sigmoid function, $T$ controls the gating effect, and
-$\beta$ provides an offset correction. The resulting confidence estimates the
-probability of response correctness, supporting both individual decisions and
-aggregate reliability assessment.
+$\beta$ provides an offset correction.
+
+The resulting probability of response correctness serves as a shared reliability
+signal for model selection, response routing, and subgroup monitoring. Model
+selection and retrospective accuracy estimation use this signal without requiring
+ground-truth answers in the target setting. Likewise, DeLaS-Scr and DeLaS-Cal
+require no ground-truth labels at deployment once fitted on labeled development
+data.
 
 ## 📁 Repository structure
 
